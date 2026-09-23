@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# impeccable (platform-specific engine binary, redownloaded per machine)
+.claude/skills/impeccable/scripts/bin/
+.impeccable/hook.cache.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
