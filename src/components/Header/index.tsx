@@ -2,9 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
+import { CalendarPlus, Menu } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetClose,
@@ -15,17 +14,16 @@ import {
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
-
 interface INavItems {
-  _title: string;
-  _url: string;
+  _title: string
+  _url: string
 }
 
 const NAV_ITEMS: INavItems[] = [
   { _title: "Servicios", _url: "/servicios" },
   { _title: "Empresas", _url: "/empresas" },
   { _title: "Cursos", _url: "/cursos" },
-] as const
+]
 
 const CTA_ITEM = { title: "Agendar proyecto", url: "/agendar-proyecto" }
 
@@ -33,49 +31,48 @@ export function Header() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="text-lg font-semibold">
+    <header className="bg-brand-surface text-brand-ink sticky top-0 z-50 shadow-[0_1px_0_0_rgba(255,255,255,0.06)]">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
+        <Link href="/" className="text-lg font-bold">
           Negocio
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item._url}
               href={item._url}
               className={cn(
-                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                pathname === item._url && "text-foreground"
+                "text-brand-muted hover:text-brand-ink text-sm font-medium transition-colors",
+                pathname === item._url && "text-brand-ink"
               )}
             >
               {item._title}
             </Link>
           ))}
-          
-          <div className="hidden md:block">
-            <Button render={<Link href={CTA_ITEM.url} />}>
-              {CTA_ITEM.title}
-            </Button>
-          </div>
+
+          <Link
+            href={CTA_ITEM.url}
+            className="bg-brand-accent text-brand-accent-ink focus-visible:outline-brand-accent inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            <CalendarPlus className="size-4" />
+            {CTA_ITEM.title}
+          </Link>
         </nav>
 
         <Sheet>
           <SheetTrigger
-            render={
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                aria-label="Abrir menú"
-              />
-            }
+            className="border-brand-border text-brand-ink hover:bg-white/5 inline-flex items-center justify-center rounded-md border p-3 md:hidden"
+            aria-label="Abrir menú"
           >
-            <Menu />
+            <Menu className="size-5" />
           </SheetTrigger>
-          <SheetContent side="right" className="w-72">
+          <SheetContent
+            side="right"
+            className="border-brand-border bg-brand-surface text-brand-ink w-72"
+          >
             <SheetHeader>
-              <SheetTitle>Negocio</SheetTitle>
+              <SheetTitle className="text-brand-ink">Negocio</SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-4">
               {NAV_ITEMS.map((item) => (
@@ -83,8 +80,8 @@ export function Header() {
                   key={item._url}
                   render={<Link href={item._url} />}
                   className={cn(
-                    "rounded-md px-2 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                    pathname === item._url && "bg-muted text-foreground"
+                    "text-brand-muted hover:bg-brand-bg hover:text-brand-ink rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    pathname === item._url && "bg-brand-bg text-brand-ink"
                   )}
                 >
                   {item._title}
@@ -92,8 +89,9 @@ export function Header() {
               ))}
               <SheetClose
                 render={<Link href={CTA_ITEM.url} />}
-                className="mt-2 rounded-md bg-primary px-2 py-2 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                className="bg-brand-accent text-brand-accent-ink mt-2 flex items-center justify-center gap-2 rounded-md px-3 py-3 text-center text-sm font-semibold hover:opacity-90"
               >
+                <CalendarPlus className="size-4" />
                 {CTA_ITEM.title}
               </SheetClose>
             </nav>

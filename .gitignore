@@ -38,6 +38,7 @@ yarn-error.log*
 
 # impeccable (platform-specific engine binary, redownloaded per machine)
 .claude/skills/impeccable/scripts/bin/
+.impeccable/hook.cache.json
 
 # typescript
 *.tsbuildinfo
